@@ -10,7 +10,7 @@ function kk_content(){
       <div class="login-logo">
         <a href="../index2.html"><b><?php echo kk_site();?> </b>LTE</a>
       </div>
-      <!-- /.login-logo -->
+      <!--login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign in to start your session</p>

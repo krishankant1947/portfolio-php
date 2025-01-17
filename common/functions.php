@@ -15,3 +15,4 @@ function kk_get_url($name){
     
     return $path[$name];
 }
+?>

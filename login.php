@@ -5,7 +5,23 @@ function kk_title(){
 }
 function kk_content(){
 ?>
+<?php
+$array=array();
+require "config.php";
+if($_SERVER['REQUEST_METHOD']=='POST'){
+       
+  if(empty($_POST['email'])){
+      $array[]=("enter your data");
+  }
+  if(empty($array)){
+      $sql="insert into roles(title) value(?)";
+      $stmt=$pdo->prepare($sql);
+      $stmt->execute([$_POST['email']]);
+ };
+ 
 
+}
+?>
 <div class="login-box">
       <div class="login-logo">
         <a href="../index2.html"><b><?php echo kk_site();?> </b>LTE</a>
@@ -16,7 +32,7 @@ function kk_content(){
           <p class="login-box-msg">Sign in to start your session</p>
           <form action="<?php echo kk_get_url('post_login');?>" method="post">
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+              <input type="email" class="form-control" name="email" placeholder="Email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             <div class="input-group mb-3">

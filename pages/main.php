@@ -25,6 +25,28 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-bg-warning">
+                    <div class="inner">
+                        <h3>49</h3>
+                        <p>your ragistration</p>
+                    </div>
+                    <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"> more info
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-bg-danger">
+                    <div class="inner">
+                        <h3>97</h3>
+                        <p>Bounce rate</p>
+                    </div>
+                    <a href="#" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"> more info
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </div>
+            </div>
         </div><!--row-->
     </div><!--container-->
 </main>

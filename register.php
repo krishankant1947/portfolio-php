@@ -4,6 +4,7 @@ function kk_title(){
     return "Register Now";
 }
 function kk_content(){
+  
 ?>
 <?php
 $array=array();

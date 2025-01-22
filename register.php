@@ -9,19 +9,25 @@ function kk_content(){
 $array=array();
 require "config.php";
 if($_SERVER['REQUEST_METHOD']=='POST'){
-       
-  if(empty($_POST['full_name'])){
-      $array[]=("enter your data");
-  }
   if(empty($array)){
-      $sql="insert into users(full_name) value(?)";
+      $sql="insert into users (full_name,email,password_string, role_id) values(:full_name,:email_address,:password, :role_id)";
       $stmt=$pdo->prepare($sql);
-      $stmt->execute([$_POST['full_name']]);
+      $stmt->execute([
+        'role_id' =>  9,
+        "full_name"=>$_POST['full_name'],
+        "email_address"=>$_POST['email_address'],
+        "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)
+      ]);
       echo'data inserted';
- };
- 
-
+  }
 }
+
+$orig = "admin123";
+echo $enc = password_hash($orig, PASSWORD_DEFAULT);
+var_dump("\n", $orig == $enc, password_verify($orig, $enc));
+
+echo "<br/>",md5($orig), "<br/>";
+echo sha1($orig);
 ?>
     <div class="register-box">
       <div class="register-logo">
@@ -37,11 +43,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
               <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+              <input type="email" name="email_address" class="form-control" placeholder="Email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" />
+              <input type="password" name="password" class="form-control" placeholder="Password" />
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
             <!--begin::Row-->

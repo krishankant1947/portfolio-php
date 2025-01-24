@@ -9,25 +9,27 @@ function kk_content(){
 $array=array();
 require "config.php";
 if($_SERVER['REQUEST_METHOD']=='POST'){
-  if(empty($array)){
+      if(empty($_POST['full_name'])){
+        $array[]=("Data empty");
+      }
+      if(empty($array)){
       $sql="insert into users (full_name,email,password_string, role_id) values(:full_name,:email_address,:password, :role_id)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'role_id' =>  9,
+        'role_id' =>  10,
         "full_name"=>$_POST['full_name'],
         "email_address"=>$_POST['email_address'],
         "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)
-      ]);
-      echo'data inserted';
+      ]
+    );
   }
 }
 
-$orig = "admin123";
-echo $enc = password_hash($orig, PASSWORD_DEFAULT);
-var_dump("\n", $orig == $enc, password_verify($orig, $enc));
-
-echo "<br/>",md5($orig), "<br/>";
-echo sha1($orig);
+// $orig = "admin123";
+// echo $enc = password_hash($orig, PASSWORD_DEFAULT);
+// var_dump("\n", $orig == $enc, password_verify($orig, $enc));
+// echo "<br/>",md5($orig), "<br/>";
+// echo sha1($orig);
 ?>
     <div class="register-box">
       <div class="register-logo">
@@ -37,6 +39,14 @@ echo sha1($orig);
       <div class="card">
         <div class="card-body register-card-body">
           <p class="register-box-msg">Register a new membership</p>
+          <?php
+            if(!empty($array)){
+             echo '';
+             for($a=0 ; $a < count($array); $a++){
+              echo $array[$a];
+             }
+            }
+            ?>
           <form action="register.php" method="post">
             <div class="input-group mb-3">
               <input type="text" name="full_name" class="form-control" placeholder="Full Name" />

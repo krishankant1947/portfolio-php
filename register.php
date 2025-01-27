@@ -16,13 +16,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $sql="insert into users (full_name,email,password_string, role_id) values(:full_name,:email_address,:password, :role_id)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'role_id' =>  1,
+        'role_id' =>  2,
         "full_name"=>$_POST['full_name'],
         "email_address"=>$_POST['email_address'],
         "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)
       ]
     );
-  }
+    
+  };
+  var_dump($_POST);
 }
 
 // $orig = "admin123";
@@ -33,7 +35,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 ?>
     <div class="register-box">
       <div class="register-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
+        <a href="#"><b>Admin</b>LTE</a>
       </div>
       <!-- /.register-logo -->
       <div class="card">

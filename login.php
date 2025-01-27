@@ -14,9 +14,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $array[]=("enter your data");
   }
   if(empty($array)){
-      $sql="insert into roles(title) value(?)";
+      $sql="insert into roles (title,password) values (:email,:password)";
       $stmt=$pdo->prepare($sql);
-      $stmt->execute([$_POST['email']]);
+      $stmt->execute([
+        'email' => $_POST['email'],
+        "password"=> password_hash($_POST['password'], PASSWORD_DEFAULT)
+      ]);
  };
  
 
@@ -36,7 +39,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" />
+              <input type="password" class="form-control" name="password" placeholder="Password" />
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
             <!--begin::Row-->

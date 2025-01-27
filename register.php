@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $sql="insert into users (full_name,email,password_string, role_id) values(:full_name,:email_address,:password, :role_id)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'role_id' =>  10,
+        'role_id' =>  1,
         "full_name"=>$_POST['full_name'],
         "email_address"=>$_POST['email_address'],
         "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)

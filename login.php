@@ -24,13 +24,13 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 ?>
 <div class="login-box">
       <div class="login-logo">
-        <a href="../index2.html"><b><?php echo kk_site();?> </b>LTE</a>
+        <a href=""><b> </b>LTE</a>
       </div>
       <!--login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign in to start your session</p>
-          <form action="<?php echo kk_get_url('post_login');?>" method="post">
+          <form action="" method="post">
             <div class="input-group mb-3">
               <input type="email" class="form-control" name="email" placeholder="Email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             </a>
           </div>
           <!-- /.social-auth-links -->
-          <p class="mb-1"><a href="forgot-password.html">I forgot my password</a></p>
+          <p class="mb-1"><a href="">I forgot my password</a></p>
           <p class="mb-0">
             <a href="register.html" class="text-center"> Register a new membership </a>
           </p>

@@ -7,22 +7,23 @@ function kk_content(){
 ?>
 <?php
 $array=array();
+
 require "config.php";
 if($_SERVER['REQUEST_METHOD']=='POST'){
       if(empty($_POST['full_name'])){
         $array[]=("Data empty");
       }
       if(empty($array)){
-      $sql="insert into users (full_name,email,password_string, role_id) values(:full_name,:email_address,:password, :role_id)";
+      $sql="insert into users (full_name,email,password_string, roles_id) values(:full_name,:email_address,:password, :roles_id)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'role_id' =>  2,
+        'roles_id' => 1,
         "full_name"=>$_POST['full_name'],
         "email_address"=>$_POST['email_address'],
         "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)
       ]
     );
-    
+ 
   };
   var_dump($_POST);
 }

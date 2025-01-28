@@ -14,14 +14,18 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $array[]=("enter your data");
   }
   if(empty($array)){
-      $sql="insert into roles (title,password) values (:email,:password)";
+      $sql="insert into roles (roles_name) values (?)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
         'email' => $_POST['email'],
         "password"=> password_hash($_POST['password'], PASSWORD_DEFAULT)
       ]);
  };
- var_dump($_POST);
+ $sql="select * from roles";
+ $sql=$pdo->prepare($sql);
+ $stmt->execute();
+ $rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
+ //var_dump($_POST);
 
 }
 ?>
@@ -34,6 +38,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign in to start your session</p>
           <form action="" method="post">
+          <?php
+            if(!empty($array)){
+             echo '';
+             for($a=0 ; $a < count($array); $a++){
+              echo $array[$a];
+             }
+            }
+            ?>
             <div class="input-group mb-3">
               <input type="email" class="form-control" name="email" placeholder="Email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>

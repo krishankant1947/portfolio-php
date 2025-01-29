@@ -10,22 +10,17 @@ $array=array();
 require "config.php";
 if($_SERVER['REQUEST_METHOD']=='POST'){
        
-  if(empty($_POST['email'])){
+  if(empty($_POST['admin'])){
       $array[]=("enter your data");
   }
   if(empty($array)){
-      $sql="insert into roles (roles_name) values (?)";
+      $sql="insert into roles (role_name) values (:admin)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'email' => $_POST['email'],
-        "password"=> password_hash($_POST['password'], PASSWORD_DEFAULT)
+        'admin'=>$_POST['admin']
       ]);
  };
- $sql="select * from roles";
- $sql=$pdo->prepare($sql);
- $stmt->execute();
- $rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
- //var_dump($_POST);
+  // var_dump($_POST);
 
 }
 ?>
@@ -47,7 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }
             ?>
             <div class="input-group mb-3">
-              <input type="email" class="form-control" name="email" placeholder="Email" />
+              <input type="text" class="form-control" name="admin" placeholder="Email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             <div class="input-group mb-3">
@@ -95,4 +90,32 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 }
 
 require 'layout/guest.php';
+?>
+<?php
+class Fruit {
+  // Properties
+  public $name;
+  public $color;
+
+  // Methods
+  function set_name($name) {
+    $this->name = $name;
+  }
+  function get_name() {
+    return $this->name;
+  }
+  function set_color($color) {
+    $this->color = $color;
+  }
+  function get_color() {
+    return $this->color;
+  }
+}
+
+$apple = new Fruit();
+$apple->set_name('Apple');
+$apple->set_color('Red');
+echo "Name: " . $apple->get_name();
+echo "<br>";
+echo "Color: " . $apple->get_color();
 ?>

@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
       $sql="insert into users (full_name,email,password_string, roles_id) values(:full_name,:email_address,:password, :roles_id)";
       $stmt=$pdo->prepare($sql);
       $stmt->execute([
-        'roles_id' => 1,
+        'roles_id' => 13,
         "full_name"=>$_POST['full_name'],
         "email_address"=>$_POST['email_address'],
         "password"=> password_hash($_POST['password'],  PASSWORD_DEFAULT)
@@ -25,7 +25,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     );
  
   };
-  var_dump($_POST);
+  $sql="select u.email,u.id,u.password_string ,u.role_id ,r.id as r_id,r.role_name from users u join roles r on(r.id = u.roles_id)";
+ $sql=$pdo->prepare($sql);
+ $stmt->execute();
+
+  // var_dump($_POST);
 }
 
 // $orig = "admin123";

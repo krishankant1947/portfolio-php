@@ -32,9 +32,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
   // var_dump($_POST);
 }
 
-// $orig = "admin123";
-// echo $enc = password_hash($orig, PASSWORD_DEFAULT);
-// var_dump("\n", $orig == $enc, password_verify($orig, $enc));
+$orig = "admin123";
+echo $enc = password_hash($orig, PASSWORD_DEFAULT);
+var_dump("\n", $orig == $enc, password_verify($orig, $enc));
 // echo "<br/>",md5($orig), "<br/>";
 // echo sha1($orig);
 ?>

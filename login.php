@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
+  exit(header('location: dashboard.php'));
+}
 function kk_title(){
     return "Login Now";
 }
@@ -8,20 +11,38 @@ function kk_content(){
 <?php
 $array=array();
 require "config.php";
+
+$errors = [];
+
 if($_SERVER['REQUEST_METHOD']=='POST'){
        
-  if(empty($_POST['admin'])){
+  if(!empty($_POST['admin'])){
       $array[]=("enter your data");
-  }
-  if(empty($array)){
-      $sql="insert into roles (role_name) values (:admin)";
-      $stmt=$pdo->prepare($sql);
-      $stmt->execute([
-        'admin'=>$_POST['admin']
-      ]);
- };
-  // var_dump($_POST);
+      $sl = "select u.email,u.id,u.password_string ,u.roles_id ,r.id as r_id,r.role_name 
+      from users u join roles r on(r.id = u.roles_id) where u.email=:email" ;
+      $stmt = $pdo->prepare($sl);
+      $stmt->execute(['email' => $_POST['admin']]);
+      $userinfo = $stmt->fetch(\PDO::FETCH_ASSOC);
+      if(empty($userinfo)){
+        $errors[] = "Invalid username and password";
+      }
 
+      if(!password_verify($_POST['password'], $userinfo['password_string'])){
+        $errors[] = "Invalid password";
+      }
+      if(empty($errors)){
+        $_SESSION['errors'] = '';
+        $_SESSION['loggedin'] = true;
+        unset($userinfo['password_string']);
+        $_SESSION['user'] = $userinfo;
+        header('location: dashboard.php');
+        exit;
+      } else{
+        $_SESSION['errors'] = implode("<Br/>", $errors);
+        header("location: login.php");
+        die;
+      }
+  }
 }
 ?>
 <div class="login-box">
@@ -34,11 +55,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
           <p class="login-box-msg">Sign in to start your session</p>
           <form action="" method="post">
           <?php
-            if(!empty($array)){
-             echo '';
-             for($a=0 ; $a < count($array); $a++){
-              echo $array[$a];
-             }
+            if(!empty($_SESSION['errors'])){
+              echo $_SESSION['errors'];
+              unset($_SESSION['errors']);
             }
             ?>
             <div class="input-group mb-3">
@@ -90,32 +109,4 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 }
 
 require 'layout/guest.php';
-?>
-<?php
-class Fruit {
-  // Properties
-  public $name;
-  public $color;
-
-  // Methods
-  function set_name($name) {
-    $this->name = $name;
-  }
-  function get_name() {
-    return $this->name;
-  }
-  function set_color($color) {
-    $this->color = $color;
-  }
-  function get_color() {
-    return $this->color;
-  }
-}
-
-$apple = new Fruit();
-$apple->set_name('Apple');
-$apple->set_color('Red');
-echo "Name: " . $apple->get_name();
-echo "<br>";
-echo "Color: " . $apple->get_color();
 ?>
